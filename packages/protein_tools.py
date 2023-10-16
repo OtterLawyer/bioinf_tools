@@ -11,7 +11,7 @@ MOLECULAR_MASS_MAP = {'A': 89.094, 'R': 174.203, 'N': 132.119, 'D': 133.104, 'C'
                   'L': 131.175, 'K': 146.189, 'M': 149.208, 'F': 165.192, 'P': 115.132,
                   'S': 105.093, 'T': 119.119, 'W': 204.228, 'Y': 181.191, 'V': 117.148}
 
-AAS = 'ACDEFGHIKLMNPQRSTVWY'
+AAS = {'A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'Y'}
 
 def is_prot(prot: str) -> bool:
     """
@@ -86,7 +86,7 @@ def count_nucl_length (prot: str) -> int:
      Return:
       -int - the result of the count
     """
-    return len(prot)*3
+    return len(prot) * 3
 
 
 def count_aa_content(prot: str) -> dict:
@@ -98,13 +98,12 @@ def count_aa_content(prot: str) -> dict:
     """
 
     prot = prot.upper()
-    aa_counter = [0] * 20
-    for i in range(len(prot)):
-        n = AAS.index(prot[i])
-        aa_counter[n] += 1
-
-    aa_content = dict(zip(list(AAS), aa_counter))
-    return aa_content
+    AA_CONTENT = {'I': 0, 'T': 0, 'H': 0, 'S': 0, 'N': 0, 'K': 0, 'E': 0, 'D': 0, 'P': 0, 'F': 0,
+ 'R': 0, 'C': 0, 'V': 0, 'Q': 0, 'A': 0, 'Y': 0, 'W': 0, 'M': 0, 'G': 0, 'L': 0}
+    for i in prot:
+        if i in AAS:
+            AA_CONTENT[i] += 1
+    return AA_CONTENT
 
 
 def count_extinction_280nm(prot: str) -> int:
