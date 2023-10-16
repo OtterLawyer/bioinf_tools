@@ -41,11 +41,11 @@ def complement(seq: str) ->str:
     """
     cstrand = ''
     if 'u' in seq.lower():
-        for nucl in seq:
-            cstrand += RNA2CRNA[nucl]
+        nucl_complement_map = RNA2CRNA
     else:
-        for nucl in seq:
-            cstrand += DNA2CDNA[nucl]
+        nucl_complement_map = DNA2CDNA
+    for nucl in seq:
+        cstrand += nucl_complement_map[nucl]
     return cstrand
 
 def reverse_complement(seq: str) -> str:
