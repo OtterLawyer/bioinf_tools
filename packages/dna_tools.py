@@ -3,7 +3,7 @@ from typing import Union
 
 DNA2RNA = {'A':'A', 'a':'a', 'T':'U', 't':'u', 'G':'G', 'g':'g', 'C':'C', 'c':'c'}
 DNA2CDNA = {'A':'T', 'a':'t', 'T':'A', 't':'a', 'G':'C', 'g':'c', 'C':'G', 'c':'g'}
-RNA2CRNA = {'A':'U', 'a':'u', 'T':'A', 't':'a', 'G':'C', 'g':'c', 'C':'G', 'c':'g'}
+RNA2CRNA = {'A':'U', 'a':'u', 'U':'A', 'u':'a', 'G':'C', 'g':'c', 'C':'G', 'c':'g'}
 COMMANDS = {'transcribe': transcribe, 'reverse': reverse, 'complement':complement, 'reverse_complement': reverse_complement, 'count_gc': count_gc, 
 'dna_or_rna': dna_or_rna, 'get_sequence_length': get_sequence_length}
 
