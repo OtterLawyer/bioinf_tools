@@ -23,7 +23,12 @@ def count_qscore(score_string: str) -> float:
         total_score += score_string.count(symb) * (ord(symb) - 33)
     return total_score / len(score_string)
 
-def fastq_tools(seqs: dict[str,str], gc_bounds: Union[int,tuple[int,int]] = (0,100), length_bounds: Union[int,tuple[int,int]] = (0, 2**32), quality_treshholds:int = 0) -> dict[str,str]:
+def fastq_tools(
+        seqs: Dict[str, str], 
+        gc_bounds: Union[int, tuple[int, int]] = (0, 100), 
+        length_bounds: Union[int, tuple[int, int]] = (0, 2**32), 
+        quality_treshholds: int = 0
+) -> Dict[str, str]:
     """
     Filters fastq files by specifiable parametrs.
     Arguments:
