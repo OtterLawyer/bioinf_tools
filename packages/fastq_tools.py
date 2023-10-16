@@ -1,4 +1,6 @@
 from typing import Union
+
+
 def count_gc(seq: str) -> float:
     """
     Counts gc content of sequence.
@@ -10,6 +12,7 @@ def count_gc(seq: str) -> float:
     gc = seq.lower().count('g') + seq.lower().count('c')
     answer = gc / len(seq) * 100
     return round(answer, 2)
+
 def count_qscore(score_string: str) -> float:
     """
     Counts quality score for inputed quality score string.
