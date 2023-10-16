@@ -2,6 +2,8 @@ from typing import Union
 DNA2RNA = {'A':'A', 'a':'a', 'T':'U', 't':'u', 'G':'G', 'g':'g', 'C':'C', 'c':'c'}
 DNA2CDNA = {'A':'T', 'a':'t', 'T':'A', 't':'a', 'G':'C', 'g':'c', 'C':'G', 'c':'g'}
 RNA2CRNA = {'A':'U', 'a':'u', 'T':'A', 't':'a', 'G':'C', 'g':'c', 'C':'G', 'c':'g'}
+COMMANDS = {'transcribe': transcribe, 'reverse': reverse, 'complement':complement, 'reverse_complement': reverse_complement, 'count_gc': count_gc, 
+'dna_or_rna': dna_or_rna, 'get_sequence_length': get_sequence_length}
 
 
 def transcribe(seq: str) -> str:
@@ -91,9 +93,6 @@ def get_sequence_length(seq: str) -> int:
     """
     return len(seq)
 
-commands = {'transcribe': transcribe, 'reverse': reverse, 'complement':complement, 'reverse_complement': reverse_complement, 'count_gc': count_gc, 
-'dna_or_rna': dna_or_rna, 'get_sequence_length': get_sequence_length}
-
 def check(args: list[str]):
     """
     Checks list of sequences for correct format. 
@@ -105,7 +104,7 @@ def check(args: list[str]):
     """
     if len(args)  < 2:
         raise ValueError('Input sequences and command')
-    elif args[-1] not in commands:
+    elif args[-1] not in COMMANDS:
         raise ValueError('No such command')
     else:
         for seq in args[:-1]:
@@ -138,10 +137,10 @@ def run_dna_rna_tools(*args: list[str]) -> Union[str, float, list[str]]:
     output = []
     check(args)
     if len(seqs) == 1:
-        return(commands[cmd](seqs[0]))
+        return(COMMANDS[cmd](seqs[0]))
     else:
         for seq in seqs:
-            output.append(commands[cmd](seq))
+            output.append(COMMANDS[cmd](seq))
         if len(output) > 1:
             return(output)
         else:
