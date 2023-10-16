@@ -1,4 +1,6 @@
 from typing import Union
+
+
 dna2rna = {'A':'A', 'a':'a', 'T':'U', 't':'u', 'G':'G', 'g':'g', 'C':'C', 'c':'c'}
 dna2cdna = {'A':'T', 'a':'t', 'T':'A', 't':'a', 'G':'C', 'g':'c', 'C':'G', 'c':'g'}
 rna2crna = {'A':'U', 'a':'u', 'T':'A', 't':'a', 'G':'C', 'g':'c', 'C':'G', 'c':'g'}
