@@ -1,7 +1,7 @@
 from typing import Union
-dna2rna = {'A':'A', 'a':'a', 'T':'U', 't':'u', 'G':'G', 'g':'g', 'C':'C', 'c':'c'}
-dna2cdna = {'A':'T', 'a':'t', 'T':'A', 't':'a', 'G':'C', 'g':'c', 'C':'G', 'c':'g'}
-rna2crna = {'A':'U', 'a':'u', 'T':'A', 't':'a', 'G':'C', 'g':'c', 'C':'G', 'c':'g'}
+DNA2RNA = {'A':'A', 'a':'a', 'T':'U', 't':'u', 'G':'G', 'g':'g', 'C':'C', 'c':'c'}
+DNA2CDNA = {'A':'T', 'a':'t', 'T':'A', 't':'a', 'G':'C', 'g':'c', 'C':'G', 'c':'g'}
+RNA2CRNA = {'A':'U', 'a':'u', 'T':'A', 't':'a', 'G':'C', 'g':'c', 'C':'G', 'c':'g'}
 
 
 def transcribe(seq: str) -> str:
@@ -14,7 +14,7 @@ def transcribe(seq: str) -> str:
     """
     rna = ''
     for nucl in seq:
-        rna += dna2rna[nucl]
+        rna += DNA2RNA[nucl]
     return rna
     
 def reverse(seq: str) -> str:
@@ -38,10 +38,10 @@ def complement(seq: str) ->str:
     cstrand = ''
     if 'u' in seq.lower():
         for nucl in seq:
-            cstrand += rna2crna[nucl]
+            cstrand += RNA2CRNA[nucl]
     else:
         for nucl in seq:
-            cstrand += dna2cdna[nucl]
+            cstrand += DNA2CDNA[nucl]
     return cstrand
 
 def reverse_complement(seq: str) -> str:
