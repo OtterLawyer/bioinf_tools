@@ -111,6 +111,7 @@ def check(args: list[str]):
     for seq in args[:-1]:
         if set(seq.lower()) == set('autgc') and set(seq.lower()) != set('atgc') and set(seq.lower()) != set('augc'):
             raise ValueError('Incorrect nucleic acid')
+
 def run_dna_rna_tools(*args: list[str]) -> Union[str, float, list[str]]:
     """
     Consists of several functions, is able to:
