@@ -56,11 +56,11 @@ def fastq_tools(
     for name in seqs:
         seq, q = seqs[name]
         if not(lower_gc <= float(count_gc(seq)) <= upper_gc):
-            break
+            continue
         elif not(lower_len <= len(seq) <= upper_len):
-            break
+            continue
         elif not(quality_treshholds <= count_qscore(q)):
-            break
+            continue
         else:
             output[name] = seqs[name]
     return output
