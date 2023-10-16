@@ -142,9 +142,6 @@ def run_dna_rna_tools(*args: list[str]) -> Union[str, float, list[str]]:
     else:
         for seq in seqs:
             output.append(COMMANDS[cmd](seq))
-        if len(output) > 1:
-            return(output)
-        else:
-            return(output[0])
+        return(output[0])
     
     
