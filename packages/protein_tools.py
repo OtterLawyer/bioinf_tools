@@ -124,10 +124,7 @@ def count_extinction_280nm(prot: str) -> int:
     y_number = aa_cont_dict.get('Y')
     c_number = aa_cont_dict.get('C')
 
-    if c_number == 0:
-        e = 5500 * w_number + 1490 * y_number
-    else:
-        e = 5500 * w_number + 1490 * y_number + 125*(c_number//2)
+    e = 5500 * w_number + 1490 * y_number + 125*(c_number//2)
     return e
 
 
