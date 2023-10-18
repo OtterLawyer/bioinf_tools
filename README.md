@@ -15,6 +15,7 @@ bioinf_tools consists of 3 tools:
 - na_tools - tools for DNA and RNA.
 - p_tools - tools for proteins.
 - fq_tools - tools for filtering fastq files.
+- w_fq - tool for writing output of fq_tools to fastq file.
 
 # Installation <a name="Installation"></a>
 
@@ -88,12 +89,18 @@ bi.p_tools('count_extinction_280nm', 'DYKDDDDK') #1490
 ## fastq_tools
 Filters fastq files by specifiable parametrs.
 ### Arguments:
-- seqs (dict[str,str]) - a dictionary consisting of fastq sequences. Key - string, sequence name. The value is a tuple of two strings: sequence and quality.
+- input_path (str) - path to input fastq file.
+- output_filename (str) - name of output file. Output file will be writen to fastq_filtrator_resuls folder, with name output_filename.fastq. If none name is given input name will be used.
 - gc_bounds (int,tuple) - GC interval (in percent) for filtering, default is (0, 100). If input is single int - it will be ceiling (0, n).
 - length_bounds (int,tuple) - length interval for filtering. Works exactly as gc_bounds. Default is (0, 2**32)
 - quality_treshholds (int) - The threshold value of average read quality for the filter is 0 by default (phred33 scale).
 ### Return:
 - output (dict[str,str]) - filtered dictionary, which consists of entities that fulfill entered parametrs.
+
+## write_fastq
+Writes output of fastq_tools to fastq file.
+### Arguments:
+- data (tuple(dict[str,str], str)) - output of fastq_tools. Dictionary where key - string, seqeunce name. 
 
 As example we will use first read from 1_control_psbA3_2019_minq7.fastq (https://zenodo.org/record/3736457/files/1_control_psbA3_2019_minq7.fastq?download=1)
 Which consist of 192 nucleotides, has 46.88% GC content and has mean quality score ~17.1.
@@ -104,6 +111,8 @@ bi.fq_tools(fastq_file, (40, 100),(195,200),16) #{}
 bi.fq_tools(fastq_file, (40, 100),(100,200),18) #{}
 bi.fq_tools(fastq_file, (40, 100),(100,200),16) #{'ee15a423-b008-44be-a4b2': ('GTTGTACTTCGTTCAATCGGTAGGTGTTTAACCGGATGGTCACGCCTACCGTGACAAAGAGATTGTCGGTGTCTTTGTGTTTCTGTTGGTGCTGATATTGCATTATGCATGAACGTAATGCCCATTAGTTGTGAATCCACCATGCGCGGAAGATAGAGCGACAGGCAAGTCACAAAGACACCGACAACTGTC',
   "##$&$&/035881()'$0&*('-.=;685()$.%($'%%&#&)+..0,&+&%.-/+,%&()$3:0&@09BF=>CC8(78029F7=<=)+@+.6CCFFC@-8%2579<B8;88412134,,;:8./,#1#&(%((09;B=??48<=<@79*-:B540,8=B=444:<571-B5=ED2.56;110.5+,*)%%*")}
+bi.w_fq(bi.fq_tools('1_control_psbA3_2019_minq7.fastq', out))
+# will create fastq_filtrator_resuls/out.fastq file with all reads.
 ```
 
 # Autor <a name="Autor"></a>
