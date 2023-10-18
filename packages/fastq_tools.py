@@ -90,7 +90,7 @@ def write_fastq(data):
         os.mkdir(OUTDIR)
 
     if not output_filename.endswith('.fastq'):
-        output_filename = out_filename + '.fastq'
+        output_filename = output_filename + '.fastq'
     out_path = os.path.join(OUTDIR, output_filename)
     
     
