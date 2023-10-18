@@ -16,6 +16,8 @@ bioinf_tools consists of 3 tools:
 - p_tools - tools for proteins.
 - fq_tools - tools for filtering fastq files.
 - w_fq - tool for writing output of fq_tools to fastq file.
+- convert_multiline_fasta_to_oneline - converts multiline fasta to oneline fasta.
+- change_fasta_start_pos - changes starting position in oneline single genome fasta.
 
 # Installation <a name="Installation"></a>
 
@@ -114,6 +116,47 @@ bi.fq_tools(fastq_file, (40, 100),(100,200),16) #{'ee15a423-b008-44be-a4b2': ('G
 bi.w_fq(bi.fq_tools('1_control_psbA3_2019_minq7.fastq', out))
 # will create fastq_filtrator_resuls/out.fastq file with all reads.
 ```
+
+## convert_multiline_fasta_to_oneline
+Converts from multiline format to oneline in fasta file.
+### Arguments:
+- input_fasta (str) - name of input fasta file.
+- output_fasta (str) - name of output fasta file. If none is given will write to oneline_output.fasta file
+### Return: 
+- None
+
+### Example
+```python
+# >1803F 
+# GTGGRRATGKYMKKTTCTTTTTGTAAGCTCGTCGGGTGACTTGAYTTCGTACGGACTTTCA
+#AAGRGGACCAKCGGCACAACAAAGAAAASGGRGGAATCGCTCACACCATCGGAACCAARGA
+#CCATTATACTGACTASCTTTGGAAACTAAATTGTGARARAARACRGGC
+
+convert_multiline_fasta_to_oneline('sample.fasta', out)
+# out.fasta
+# >1803F
+#GTGGRRATGKYMKKTTCTTTTTGTAAGCTCGTCGGGTGACTTGAYTTCGTACGGACTTTCAAAGRGGACCAKCGGCACAACAAAGAAAASGGRGGAATCGCTCACACCATCGGAACCAARGACCATTATACTGACTASCTTTGGAAACTAAATTGTGARARAARACRGGC
+```
+
+## change_fasta_start_pos
+Takes in fasta file with one oneline genome and shifts starting position based on shift variable.
+### Arguments:
+- input_fasta (str) - input file name.
+- shift (int) - new starting position.
+- output_fasta (str) - name of output file. If none is given will output file will have 'shift' before input_fasta name.
+### Return: 
+- None
+### Example
+```python
+# >shift_example
+# CTTTCAA
+
+change_fasta_start_pos('shift_example.fasta', 2, 'shift_out1')
+
+# shift_out1.fasta
+# >shift_example
+# TTCAACT
+```    
 
 # Autor <a name="Autor"></a>
 Sivtsev Aleksei 
