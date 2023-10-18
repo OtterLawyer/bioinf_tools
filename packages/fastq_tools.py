@@ -1,4 +1,5 @@
 from typing import Union
+import os
 
 
 def count_gc(seq: str) -> float:
@@ -26,22 +27,28 @@ def count_qscore(score_string: str) -> float:
         total_score += score_string.count(symb) * (ord(symb) - 33)
     return total_score / len(score_string)
 
-def fastq_tools(
-        seqs: Dict[str, str], 
+
+def fastq_tools( 
+        input_path: str,
+        output_filename: str = None,
         gc_bounds: Union[int, tuple[int, int]] = (0, 100), 
         length_bounds: Union[int, tuple[int, int]] = (0, 2**32), 
         quality_treshholds: int = 0
-        ) -> Dict[str, str]:
+        ) -> dict[str, str]:
     """
     Filters fastq files by specifiable parametrs.
     Arguments:
-        -seqs (dict[str,str]) - a dictionary consisting of fastq sequences. Key - string, sequence name. The value is a tuple of two strings: sequence and quality.
+        -input_path(str) - path to input file.
+        -output_filename (str) - name of output file, input file name will be used if none is given.
         -gc_bounds (int,tuple) - GC interval (in percent) for filtering, default is (0, 100). If input is single int - it will be ceiling (0, n).
         -length_bounds (int,tuple) - length interval for filtering. Works exactly as gc_bounds. Default is (0, 2**32)
         -quality_treshholds (int) - The threshold value of average read quality for the filter is 0 by default (phred33 scale).
     Return:
         -output (dict[str,str]) - filtered dictionary, which consists of entities that fulfill entered parametrs.
     """
+    if output_filename is None:
+        output_filename = input_path
+
     output = {}
     if type(gc_bounds) == int:
         lower_gc, upper_gc = 0, gc_bounds
@@ -53,6 +60,15 @@ def fastq_tools(
     else:
         lower_len, upper_len = length_bounds[0], length_bounds[1]
     
+    seqs = dict()
+    with open(input_path) as f:
+        line = f.readline().split('runid')[0]
+        while line.startswith('@'):
+            seq = f.readline()
+            sep = f.readline()
+            qual = f.readline()
+            seqs[line] = (seq, qual)
+            line = f.readline().split('runid')[0]
     for name in seqs:
         seq, q = seqs[name]
         if not(lower_gc <= float(count_gc(seq)) <= upper_gc):
@@ -63,4 +79,4 @@ def fastq_tools(
             continue
         else:
             output[name] = seqs[name]
-    return output
+    return output, output_filename
