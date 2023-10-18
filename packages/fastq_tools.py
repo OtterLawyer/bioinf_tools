@@ -80,3 +80,23 @@ def fastq_tools(
         else:
             output[name] = seqs[name]
     return output, output_filename
+
+def write_fastq(data):
+    seqs = data[0]
+    output_filename = data[1]
+    OUTDIR = 'fastq_filtrator_results'
+    
+    if os.path.isdir(OUTDIR) is not True:
+        os.mkdir(OUTDIR)
+
+    if not output_filename.endswith('.fastq'):
+        output_filename = out_filename + '.fastq'
+    out_path = os.path.join(OUTDIR, output_filename)
+    
+    
+    with open(out_path, 'w') as out_f:
+        for name in seqs:
+            out_f.write(name)
+            out_f.write(seqs[name][0])
+            out_f.write('+\n')
+            out_f.write(seqs[name][1])
